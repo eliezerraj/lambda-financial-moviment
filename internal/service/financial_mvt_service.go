@@ -19,7 +19,7 @@ func (s *FinancialMovimentService) AddFinancialMoviment(financialMoviment domain
 	return c, nil
 }
 
-func (s *FinancialMovimentService) GetFinancialMoviment(financialMoviment domain.FinancialMoviment) (*domain.FinancialMoviment, error){
+func (s *FinancialMovimentService) GetFinancialMovimentByPerson(financialMoviment domain.FinancialMoviment) (*domain.FinancialMoviment, error){
 	childLogger.Debug().Msg("GetFinancialMoviment")
 
 	// Get Person data
@@ -32,7 +32,8 @@ func (s *FinancialMovimentService) GetFinancialMoviment(financialMoviment domain
 	fmt.Println("p => ", p)
 
 	// Get financial moviment
-	c, err := s.financialMovimentRepository.GetFinancialMoviment(financialMoviment)
+	financialMoviment.PersonID = p.ID
+	c, err := s.financialMovimentRepository.GetFinancialMovimentByPerson(financialMoviment)
 	if err != nil {
 		return nil, err
 	}

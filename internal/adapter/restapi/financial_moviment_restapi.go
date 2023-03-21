@@ -16,20 +16,22 @@ import(
 var childLogger = log.With().Str("restApi", "FinancialMovimentRestpi").Logger()
 
 type FinancialMovimentRestApi struct {
-	Url	string
+	Url			string
+	PersonPath	string
 }
 
-func NewFinancialMovimentRestApi(url string) (*FinancialMovimentRestApi, error){
-	childLogger.Debug().Msg("*** FinancialMoviment")
+func NewFinancialMovimentRestApi(url string, personpath string) (*FinancialMovimentRestApi, error){
+	childLogger.Debug().Msg("*** NewFinancialMovimentRestApi")
 	return &FinancialMovimentRestApi {
 		Url: url,
+		PersonPath: personpath,
 	}, nil
 }
 
 func (r *FinancialMovimentRestApi) GetPersonData(person domain.Person) (*domain.Person, error) {
-	childLogger.Debug().Msg("getPerson")
+	childLogger.Debug().Msg("GetPersonData")
 
-	url := r.Url + "/" + person.ID
+	url := r.Url + r.PersonPath +"/" + person.ID
 	person_interface, err :=makeGet(url, person)
 	if err != nil {
 		childLogger.Error().Err(err).Msg("error Request")
@@ -50,6 +52,7 @@ func makeGet(url string, inter interface{}) (interface{}, error) {
 	childLogger.Debug().Msg("makeGet")
 
 	client := &http.Client{Timeout: time.Second * 29}
+	
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		childLogger.Error().Err(err).Msg("error Request")

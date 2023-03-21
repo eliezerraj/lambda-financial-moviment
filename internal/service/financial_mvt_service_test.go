@@ -14,7 +14,8 @@ import(
 
 var (
 	tableName = "financial_moviment"
-	Url = "https://kfyn94nf42.execute-api.us-east-2.amazonaws.com/live/person"		
+	Url = "https://kfyn94nf42.execute-api.us-east-2.amazonaws.com"
+	PersonPath = "/live/person"	
 )
 
 /*func TestAddFinancialMoviment(t *testing.T) {
@@ -26,7 +27,7 @@ var (
 		t.Errorf("Error - TestGetFinancialMoviment Create Repository DynanoDB")
 	}
 
-	rest_api, _ := restapi.NewFinancialMovimentRestApi(Url)
+	rest_api, _ := restapi.NewFinancialMovimentRestApi(Url,PersonPath)
 	service	:= NewFinancialMovimentService(*repository, *rest_api)
 
 	var time_create_at = time.Now()
@@ -66,7 +67,7 @@ func TestGetFinancialMoviment(t *testing.T) {
 		t.Errorf("Error - TestGetFinancialMoviment Create Repository DynanoDB")
 	}
 
-	rest_api, _ := restapi.NewFinancialMovimentRestApi(Url)
+	rest_api, _ := restapi.NewFinancialMovimentRestApi(Url, PersonPath)
 	service	:= NewFinancialMovimentService(*repository, *rest_api)
 
 	var time_create_at = time.Now()
@@ -81,7 +82,7 @@ func TestGetFinancialMoviment(t *testing.T) {
 											"")
 
 	fmt.Println(" data01  ",data01)
-	result, err := service.GetFinancialMoviment(*data01)
+	result, err := service.GetFinancialMovimentByPerson(*data01)
 	if err != nil {
 		t.Errorf("Error -TestGetFinancialMoviment Access DynanoDB %v ", tableName)
 	}
