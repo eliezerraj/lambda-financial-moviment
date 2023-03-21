@@ -15,8 +15,8 @@ func (r *FinancialMovimentRepository) Ping() (bool, error){
 	return true, nil
 }
 
-func (r *FinancialMovimentRepository) AddFinancialMoviment(financialMoviment domain.FinancialMoviment) (*domain.FinancialMoviment, error){
-	childLogger.Debug().Msg("AddFinancialMoviment")
+func (r *FinancialMovimentRepository) AddFinancialMovimentByPerson(financialMoviment domain.FinancialMoviment) (*domain.FinancialMoviment, error){
+	childLogger.Debug().Msg("AddFinancialMovimentByPerson")
 
 	item, err := dynamodbattribute.MarshalMap(financialMoviment)
 	if err != nil {

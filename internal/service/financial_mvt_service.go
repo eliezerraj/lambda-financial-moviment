@@ -7,11 +7,19 @@ import (
 
 )
 
-func (s *FinancialMovimentService) AddFinancialMoviment(financialMoviment domain.FinancialMoviment) (*domain.FinancialMoviment, error){
-	childLogger.Debug().Msg("AddFinancialMoviment")
+func (s *FinancialMovimentService) AddFinancialMovimentByPerson(financialMoviment domain.FinancialMoviment) (*domain.FinancialMoviment, error){
+	childLogger.Debug().Msg("AddFinancialMovimentByPerson")
 
-	// Get financial moviment
-	c, err := s.financialMovimentRepository.AddFinancialMoviment(financialMoviment)
+	// Get Person data
+	person := domain.NewPerson(financialMoviment.PersonID,"","","")
+	p, err := s.financialMovimentRestApi.GetPersonData(*person)
+	if err != nil {
+		return nil, err
+	}
+
+	// Add financial moviment
+	financialMoviment.PersonID = p.ID
+	c, err := s.financialMovimentRepository.AddFinancialMovimentByPerson(financialMoviment)
 	if err != nil {
 		return nil, err
 	}
