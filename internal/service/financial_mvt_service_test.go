@@ -71,8 +71,8 @@ func TestGetFinancialMoviment(t *testing.T) {
 
 	var time_create_at = time.Now()
 	var time_update_at = time.Time{}
-	data01 := domain.NewFinancialMoviment(	"001",
-											"001",
+	data01 := domain.NewFinancialMoviment(	"",
+											"",
 											"902",
 											"",
 											0,
