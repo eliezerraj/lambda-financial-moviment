@@ -15,10 +15,10 @@ func (r *FinancialMovimentRepository) Ping() (bool, error){
 	return true, nil
 }
 
-/*func (r *FinancialMovimentRepository) AddAgregation(agregation domain.AgregationCardPerson) (*domain.AgregationCardPerson, error){
-	childLogger.Debug().Msg("AddAgregation")
+func (r *FinancialMovimentRepository) AddFinancialMoviment(financialMoviment domain.FinancialMoviment) (*domain.FinancialMoviment, error){
+	childLogger.Debug().Msg("AddFinancialMoviment")
 
-	item, err := dynamodbattribute.MarshalMap(agregation)
+	item, err := dynamodbattribute.MarshalMap(financialMoviment)
 	if err != nil {
 		childLogger.Error().Err(err).Msg("error message")
 		return nil, erro.ErrUnmarshal
@@ -42,8 +42,8 @@ func (r *FinancialMovimentRepository) Ping() (bool, error){
 		return nil, erro.ErrInsert
 	}
 
-	return &agregation ,nil
-}*/
+	return &financialMoviment ,nil
+}
 
 func (r *FinancialMovimentRepository) GetFinancialMoviment(financialMoviment domain.FinancialMoviment) (*domain.FinancialMoviment, error){
 	childLogger.Debug().Msg("GetFinancialMoviment")
@@ -54,7 +54,6 @@ func (r *FinancialMovimentRepository) GetFinancialMoviment(financialMoviment dom
 		expression.Key("id").Equal(expression.Value(financialMoviment.ID)),
 		expression.Key("sk").BeginsWith(financialMoviment.SK),
 	)
-
 	expr, err := expression.NewBuilder().
 							WithKeyCondition(keyCond).
 							Build()
@@ -72,14 +71,14 @@ func (r *FinancialMovimentRepository) GetFinancialMoviment(financialMoviment dom
 
 	result, err := r.client.Query(key)
 	if err != nil {
-		childLogger.Error().Err(err).Msg("error message")
+		childLogger.Error().Err(err).Msg("Error query")
 		return nil, erro.ErrQuery
 	}
 
 	final_result := []domain.FinancialMoviment{}
 	err = dynamodbattribute.UnmarshalListOfMaps(result.Items, &final_result)
     if err != nil {
-		childLogger.Error().Err(err).Msg("error message")
+		childLogger.Error().Err(err).Msg("Error Unmarshal")
 		return nil, erro.ErrUnmarshal
     }
 

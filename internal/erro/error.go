@@ -23,4 +23,7 @@ var (
 	ErrQueryEmpty	 	= errors.New("Query string não pode ser vazia")
 	ErrPutEvent			= errors.New("Erro na notificação PUTEVENT")
 	ErrCreateSession	= errors.New("Erro na Criaçao da Sessao AWS")
+	ErrHTTPRequest		= errors.New("Erro na chamada HTTP")
+	ErrHTTPForbiden		= errors.New("Erro na chamada HTTP/Acesso Negado")
+	ErrParceInterface	= errors.New("Erro no parse de interface para struct")
 )

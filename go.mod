@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/aws/aws-sdk-go v1.44.224
+	github.com/mitchellh/mapstructure v1.5.0
 	github.com/rs/zerolog v1.29.0
 )
 
