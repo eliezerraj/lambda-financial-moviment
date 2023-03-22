@@ -2,6 +2,8 @@ package service
 
 import (
 	"fmt"
+	"time"
+	"strconv"
 
 	"github.com/lambda-financial-moviment/internal/core/domain"
 
@@ -18,6 +20,9 @@ func (s *FinancialMovimentService) AddFinancialMovimentByPerson(financialMovimen
 	}
 
 	// Add financial moviment
+	financialMoviment.ID =  p.ID
+	uuid := time.Now().UnixNano() / int64(time.Millisecond)
+	financialMoviment.SK = "PERSON:" + p.ID + "#ACCOUNT:" + financialMoviment.Account + "#" + strconv.FormatInt(uuid, 10)
 	financialMoviment.PersonID = p.ID
 	c, err := s.financialMovimentRepository.AddFinancialMovimentByPerson(financialMoviment)
 	if err != nil {
@@ -27,7 +32,7 @@ func (s *FinancialMovimentService) AddFinancialMovimentByPerson(financialMovimen
 	return c, nil
 }
 
-func (s *FinancialMovimentService) GetFinancialMovimentByPerson(financialMoviment domain.FinancialMoviment) (*domain.FinancialMoviment, error){
+func (s *FinancialMovimentService) GetFinancialMovimentByPerson(financialMoviment domain.FinancialMoviment) (*[]domain.FinancialMoviment, error){
 	childLogger.Debug().Msg("GetFinancialMoviment")
 
 	// Get Person data
@@ -40,7 +45,9 @@ func (s *FinancialMovimentService) GetFinancialMovimentByPerson(financialMovimen
 	fmt.Println("p => ", p)
 
 	// Get financial moviment
-	financialMoviment.PersonID = p.ID
+	financialMoviment.ID =  p.ID
+
+	financialMoviment.SK = "PERSON:" + p.ID + "#ACCOUNT:" + financialMoviment.Account 
 	c, err := s.financialMovimentRepository.GetFinancialMovimentByPerson(financialMoviment)
 	if err != nil {
 		return nil, err

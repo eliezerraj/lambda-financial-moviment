@@ -45,7 +45,7 @@ func (r *FinancialMovimentRepository) AddFinancialMovimentByPerson(financialMovi
 	return &financialMoviment ,nil
 }
 
-func (r *FinancialMovimentRepository) GetFinancialMovimentByPerson(financialMoviment domain.FinancialMoviment) (*domain.FinancialMoviment, error){
+func (r *FinancialMovimentRepository) GetFinancialMovimentByPerson(financialMoviment domain.FinancialMoviment) (*[]domain.FinancialMoviment, error){
 	childLogger.Debug().Msg("GetFinancialMovimentByPerson")
 
 	var keyCond expression.KeyConditionBuilder
@@ -85,6 +85,6 @@ func (r *FinancialMovimentRepository) GetFinancialMovimentByPerson(financialMovi
 	if len(final_result) == 0 {
 		return nil, erro.ErrNotFound
 	} else {
-		return &final_result[0], nil
+		return &final_result, nil
 	}
 }

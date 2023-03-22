@@ -32,25 +32,28 @@ var (
 
 	var time_create_at = time.Now()
 	var time_update_at = time.Time{}
-	data01 := domain.NewFinancialMoviment(	"001",
-											"001",
-											"Eliezer",
+	data01 := domain.NewFinancialMoviment(	"",
+											"",
+											"ACC-001",
+											"901",
 											"BRL",
 											453,
+											"CREDIT",
 											time_create_at,
 											&time_update_at,
 											"")
 
 	fmt.Println(" data01  ",data01)
-	result, err := service.AddFinancialMoviment(*data01)
+	result, err := service.AddFinancialMovimentByPerson(*data01)
 	if err != nil {
 		t.Errorf("Error -TestAddFinancialMoviment Access DynanoDB %v ", tableName)
 	}
 
+	data01.ID = "PERSON-901"
 	if result == nil {
 		t.Logf("Success on TestAddFinancialMoviment!!!")
 	} else {
-		if (data01.SK == result.SK){
+		if (data01.ID == result.ID){
 			t.Logf("Success on TestAddFinancialMoviment!!! result : %v ", result)
 		}else {
 			t.Errorf("Error TestAddFinancialMoviment input : %v || result : %v "  , *data01, result)
@@ -74,9 +77,11 @@ func TestGetFinancialMoviment(t *testing.T) {
 	var time_update_at = time.Time{}
 	data01 := domain.NewFinancialMoviment(	"",
 											"",
-											"902",
+											"",
+											"901",
 											"",
 											0,
+											"",
 											time_create_at,
 											&time_update_at,
 											"")
@@ -88,12 +93,8 @@ func TestGetFinancialMoviment(t *testing.T) {
 	}
 
 	if result == nil {
-		t.Logf("Success on TestGetFinancialMoviment!!!")
+		t.Errorf("Error on TestGetFinancialMoviment!!!")
 	} else {
-		if (data01.SK == result.SK){
-			t.Logf("Success on TestGetFinancialMoviment!!! result : %v ", result)
-		}else {
-			t.Errorf("Error TestGetFinancialMoviment input : %v || result : %v "  , *data01, result)
-		}
+		t.Logf("Success on TestGetFinancialMoviment!!! result : %v ", result)
 	}
 }
