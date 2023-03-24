@@ -13,7 +13,6 @@ import(
 
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/aws/signer/v4"
-
 	"github.com/lambda-financial-moviment/internal/core/domain"
 	"github.com/lambda-financial-moviment/internal/erro"
 )
@@ -81,6 +80,8 @@ func makeGet(url string, inter interface{}) (interface{}, error) {
 		case 403:
 			return false, erro.ErrHTTPForbiden
 		case 200:
+		case 400:
+			return false, erro.ErrNotFound
 		case 404:
 			return false, erro.ErrNotFound
 		default:
@@ -148,6 +149,8 @@ func makeGetAuthIAMRole(url string, inter interface{}) (interface{}, error) {
 		case 403:
 			return false, erro.ErrHTTPForbiden
 		case 200:
+		case 400:
+			return false, erro.ErrNotFound
 		case 404:
 			return false, erro.ErrNotFound
 		default:

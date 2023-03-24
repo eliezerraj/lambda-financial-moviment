@@ -78,7 +78,7 @@ func TestGetFinancialMoviment(t *testing.T) {
 	data01 := domain.NewFinancialMoviment(	"",
 											"",
 											"",
-											"901",
+											"001",
 											"",
 											0,
 											"",

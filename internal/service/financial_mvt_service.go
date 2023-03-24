@@ -9,6 +9,9 @@ import (
 
 )
 
+var time_create_at = time.Now()
+var time_update_at = time.Time{}
+
 func (s *FinancialMovimentService) AddFinancialMovimentByPerson(financialMoviment domain.FinancialMoviment) (*domain.FinancialMoviment, error){
 	childLogger.Debug().Msg("AddFinancialMovimentByPerson")
 
@@ -24,6 +27,9 @@ func (s *FinancialMovimentService) AddFinancialMovimentByPerson(financialMovimen
 	uuid := time.Now().UnixNano() / int64(time.Millisecond)
 	financialMoviment.SK = "PERSON:" + p.ID + "#ACCOUNT:" + financialMoviment.Account + "#" + strconv.FormatInt(uuid, 10)
 	financialMoviment.PersonID = p.ID
+	financialMoviment.CreateAt = time_create_at
+	financialMoviment.UpdateAt = &time_update_at
+
 	c, err := s.financialMovimentRepository.AddFinancialMovimentByPerson(financialMoviment)
 	if err != nil {
 		return nil, err
