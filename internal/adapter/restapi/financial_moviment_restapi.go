@@ -100,6 +100,7 @@ func makeGet(url string, inter interface{}) (interface{}, error) {
 
 func makeGetAuthIAMRole(url string, inter interface{}) (interface{}, error) {
 	childLogger.Debug().Msg("makeGetAuthIAMRole")
+	childLogger.Debug().Str("",url).Msg("")
 
 	// ---------------------------
 	cfg, err := config.LoadDefaultConfig(context.TODO())

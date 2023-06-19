@@ -17,7 +17,7 @@ import (
 
 var (
 	logLevel		=	zerolog.DebugLevel // InfoLevel DebugLevel
-	version			=	"lambda-aggregation_person_card (github) version 1.5"
+	version			=	"lambda-financial_moviment (github) version 1.0"
 	tableName 		= "financial_moviment"
 	Url 			= "https://kfyn94nf42.execute-api.us-east-2.amazonaws.com"
 	PersonPath 		= "/live/person"	
