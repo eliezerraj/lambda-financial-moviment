@@ -1,12 +1,16 @@
-# lambda-financial-moviment
+# Lambda-financial-moviment
 
 POC Lambda for technical purposes
+
+Create/Get transaction account
 
 Lambda retrieve data from PERSON (call another lambda) and agregated the PERSON data with FINANCIAL MOVIMENT (account statement)
 
 The PERSON CALL use a sig v4 signature
 
 Diagrama Flow
+
+Manually compile the function
 
     APIGW ==> Lambda ==> APIGW CALL Lambda (Person) using sign v4 ==> DynamoDB (financial_moviment + person)
 
@@ -61,3 +65,18 @@ POST /financialmovimentbyperson
           "amount": 2222,
           "balance_type": "CREDIT"
     }
+
+## Pipeline
+
+## DynamoDB
+
+    PERSON-100
+    PERSON:PERSON-100#ACCOUNT:ACC-010#1689189531552
+    ACC-010
+    15
+    CREDIT
+    2023-07-12T19:16:47.142975592Z
+    BRL
+    PERSON-100
+    0001-01-01T00:00:00Z
+
